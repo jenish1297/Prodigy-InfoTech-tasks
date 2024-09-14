@@ -1,0 +1,143 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #eeeeee;
+    background-color: #222831;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #222831;
+    padding: 10px 20px;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #eeeeee;
+    font-size: 18px;
+    padding: 10px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #76ABAE;
+    background-color: #31363F;
+    border-radius: 4px;
+}
+
+nav.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #eeeeee;
+}
+
+.scrolled {
+    background-color: #31363F;
+}
+
+.manu-icon{
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menu-icon span{
+    height: 3px;
+    width: 25px;
+    background-color: #eeeeee;
+    margin: 5px 0;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+#menu {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+}
+
+#manu.mobile {
+    display: none;
+    flex-direction: column;
+    background-color: #222831;
+    position: absolute;
+    top: 60px;
+    width: 100px;
+    right: 0;
+}
+
+#manu.mobile.activate{
+    display: flex;
+}
+
+#menu.mobile li{
+    margin: 20px 0;
+    text-align: center;
+}
+
+section{
+    height: 100vh;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+#home {
+    background-color: #31363F;
+}
+
+#services{
+    background-color: #76ABAE;
+}
+
+#about{
+    background-color: #222831;
+}
+
+#contact{
+    background-color: #31363F;
+}
+
+/* media queries for  mobile */
+@media screen and (max-width: 768px) {
+    ul {
+        display: none;
+        flex-direction: column;
+        background-color: #222831;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+    }
+
+    ul.active {
+        display: flex;
+    }
+
+    .menu-icon {
+        display: flex;
+    }
+
+    li {
+        margin: 20px 0;
+        text-align: center;
+    }
+}
