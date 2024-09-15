@@ -1,62 +1,140 @@
+/* Global Styles */
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(135deg,#f3f4f6,#e5e7eb);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    font-family: 'Arial', sans-serif;
     margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #ff5f6d, #ffc371);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .stopwatch {
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     text-align: center;
-    width : 250px;
+    padding: 20px;
+    width: 300px;
+    animation: fadeIn 1s ease-in-out;
 }
 
 .time {
-   font-size: 3em;
-   font-weight: bold;
-   margin-bottom: 20px;
-   color: #333333;
+    font-size: 48px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
 }
 
-button{
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+button {
     background: #007bff;
+    color: white;
     border: none;
-    border-radius: 5px;
-    color: #fff;
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 16px;
     cursor: pointer;
-    font-size: 1em;
-    margin : 5px;
-    padding: 10px 20px;
-    transition: background-color 0.3s,transform 0.2s;
+    transition: background 0.3s ease, transform 0.2s ease;
+    outline: none;
 }
 
-button:hover{
+button:hover {
     background: #0056b3;
     transform: scale(1.05);
 }
 
-button:active{
-    background-color: #004494;
+button:active {
+    transform: scale(0.95);
 }
 
-ul {
-    list-style: none;
+.lap {
+    background: #28a745;
+}
+
+.lap:hover {
+    background: #218838;
+}
+
+.lap:active {
+    background: #1e7e34;
+}
+
+.reset {
+    background: #dc3545;
+}
+
+.reset:hover {
+    background: #c82333;
+}
+
+.reset:active {
+    background: #bd2130;
+}
+
+.pause {
+    background: #ffc107;
+    color: #212529;
+}
+
+.pause:hover {
+    background: #e0a800;
+}
+
+.pause:active {
+    background: #d39e00;
+}
+
+#laps {
+    list-style-type: none;
     padding: 0;
-    margin: 0;
+    margin: 20px 0 0;
+    font-size: 14px;
 }
 
-li {
+#laps li {
     background: #f8f9fa;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    margin: 5px 0;
-    padding: 10px;
-    text-align: center;
-    color: #333;
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#laps li:hover {
+    background: #e9ecef;
+}
+
+@media (max-width: 400px) {
+    .stopwatch {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .time {
+        font-size: 36px;
+    }
+
+    button {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
