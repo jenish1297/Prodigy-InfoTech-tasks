@@ -3,21 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather app</title>
+    <title>Global Weather Forecast</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="weather-app">
-        <h1>Weather App</h1>
-        <div class="input-location">
-            <input type="text" id="location-input" placeholder="Enter location">
-            <button id="featch-weather-btn">Get Weather</button>
-            <button id="current-location-btn">Use Current Location</button>
-        </div>
-        <div id="weather-info" class="weather-info">
-
+    <div class="app-container">
+        <div class="weather-app">
+            <header>
+                <h1>Weather Forecast App</h1>
+                <p>Get real-time weather updates for any city in the world</p>
+            </header>
+            <div class="search-bar">
+                <input type="text" id="city" placeholder="Enter city name">
+                <button onclick="getWeather()">Search</button>
+            </div>
+            <div class="weather-info" id="weather-info">
+                <!-- Weather information will appear here -->
+            </div>
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

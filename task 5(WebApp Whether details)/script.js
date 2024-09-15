@@ -1,66 +1,54 @@
+const apiKey = '0d73b56dfd34d8895281a7aa85c30c3b'; // Your OpenWeatherMap API key
 
-const weatherApiKey = '0d73b56dfd34d8895281a7aa85c30c3b'; 
-const geocoderApiKey = 'YOUR_OPENCAGE_API_KEY'; 
-const weatherInfoDiv = document.getElementById('weather-info');
-const locationInput = document.getElementById('location-input');
-const fetchWeatherBtn = document.getElementById('fetch-weather-btn');
-const currentLocationBtn = document.getElementById('current-location-btn');
+function getWeather() {
+    const city = document.getElementById("city").value;
 
-function getWeatherByCoordinates(lat, lon) {
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weatherApiKey}&units=metric`;
-    fetch(url)
-        .then(response => response.json())
-        .then(data => displayWeatherData(data))
-        .catch(error => console.error('Error fetching weather data:', error));
+    if (!city) {
+        alert("Please enter a city name.");
+        return;
+    }
+
+    const settings = {
+        async: true,
+        crossDomain: true,
+        url: `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`,
+        method: 'GET',
+    };
+
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+        displayWeather(response);
+    }).fail(function () {
+        alert("City not found. Please try again.");
+    });
 }
 
-function displayWeatherData(data) {
-    if (data.cod === 200) {
-        weatherInfoDiv.innerHTML = `
-            <h2>Weather in ${data.name}, ${data.sys.country}</h2>
-            <p>Temperature: ${data.main.temp}°C</p>
-            <p>Weather: ${data.weather[0].description}</p>
-            <p>Humidity: ${data.main.humidity}%</p>
-            <p>Wind Speed: ${data.wind.speed} m/s</p>
-        `;
-    } else {
-        weatherInfoDiv.innerHTML = `<p>Location not found</p>`;
-    }
+function displayWeather(response) {
+    const weatherInfo = document.getElementById("weather-info");
+    const temp = response.main.temp;
+    const feelsLike = response.main.feels_like;
+    const tempMin = response.main.temp_min;
+    const tempMax = response.main.temp_max;
+    const humidity = response.main.humidity;
+    const pressure = response.main.pressure;
+    const windSpeed = response.wind.speed;
+    const windDirection = response.wind.deg;
+    const description = response.weather[0].description;
+    const icon = `https://openweathermap.org/img/wn/${response.weather[0].icon}.png`;
+
+    weatherInfo.innerHTML = `
+        <div class="weather-item">
+            <h2>City: ${response.name}, ${response.sys.country}</h2>
+            <img class="weather-icon" src="${icon}" alt="${description}">
+            <p>Temperature: ${temp}°C</p>
+            <p>Feels Like: ${feelsLike}°C</p>
+            <p>Min Temp: ${tempMin}°C</p>
+            <p>Max Temp: ${tempMax}°C</p>
+            <p>Humidity: ${humidity}%</p>
+            <p>Pressure: ${pressure} hPa</p>
+            <p>Wind Speed: ${windSpeed} m/s</p>
+            <p>Wind Direction: ${windDirection}°</p>
+            <p>Weather: ${description}</p>
+        </div>
+    `;
 }
-
-function getLocationCoordinates(location) {
-    const url = `https://api.opencagedata.com/geocode/v1/json?q=${location}&key=${geocoderApiKey}`;
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            if (data.results.length > 0) {
-                const { lat, lng } = data.results[0].geometry;
-                getWeatherByCoordinates(lat, lng);
-            } else {
-                weatherInfoDiv.innerHTML = `<p>Location not found</p>`;
-            }
-        })
-        .catch(error => console.error('Error fetching location data:', error));
-}
-
-fetchWeatherBtn.addEventListener('click', () => {
-    const location = locationInput.value.trim();
-    if (location) {
-        getLocationCoordinates(location);  
-    }
-});
-
-currentLocationBtn.addEventListener('click', () => {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-            getWeatherByCoordinates(lat, lon);  // Fetch weather for current location
-        }, () => {
-            weatherInfoDiv.innerHTML = `<p>Unable to retrieve your location</p>`;
-        });
-    } else {
-        weatherInfoDiv.innerHTML = `<p>Geolocation is not supported by your browser</p>`;
-    }
-});
- 
